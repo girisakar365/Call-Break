@@ -1,19 +1,20 @@
+from os import system
 from Cards import all_cards, value
 from random import choice, sample, randint
 
 class User:
 
+    total = [] #list of total points of bot in a round
+    b_bid = [] #list of bids of bot in a round
+    b = [] #cards of bot
+    
     def __init__(self):
         
         self.all_cards = [i for i in all_cards]
         
         self.points = [] #point tracer
         
-        self.b = [] #cards of bot
 
-        self.total = [] #list of total points of bot in a round
-
-        self.b_bid = [] #list of bids of bot in a round
         
         self.card_distribution()
 
@@ -31,13 +32,14 @@ class User:
         self.p1 = [i for i in sample(self.all_cards,k = 13)]
         for i in self.p1: self.all_cards.pop(self.all_cards.index(i))
         
-        self.b.append(tuple(self.p1)) # to keep the track of selected cards of bot so as to display to for later!
+        User.b.append(tuple(self.p1)) # to keep the track of selected cards of bot so as to display to for later!
 
     def bid(self, bid: int):
         # Bid of user and bot is stored here
         # For now the bid for bot is selected randomly between 1 - 3. 
         self._bid = bid
         self.bid_of_bot = float(randint(1,3))
+        User.b_bid.append(self.bid_of_bot)
 
     def card_throw(self):
         '''
@@ -116,32 +118,26 @@ bot: {self.bot}
 
         elif bid of bot < total number of b in self.points: 
             if bid of bot == total number of b in self.points + 1: append (bid of bot) + 0.1 in total
-        
-        else: append - (bid of bot) in total
         '''
         if self.bid_of_bot == self.points.count('b'):
-            self.total.append(self.bid_of_bot) 
-
-        elif self.bid_of_bot > self.points.count('b'):
-            self.total.append(-self.bid_of_bot)
+            User.total.append(self.bid_of_bot) 
         
         elif self.bid_of_bot < self.points.count('b'):
-            if self.bid_of_bot == self.points.count('b') + 1:
-                self.total.append(self.bid_of_bot + 0.1)
+            User.total.append(self.bid_of_bot + (self.points.count('b')/10))
         
-        else: self.total.append(-self.bid_of_bot)
-
-from os import system
-system('CLS')
+        elif self.bid_of_bot > self.points.count('b'):
+            User.total.append(-self.bid_of_bot)
 
 for i in range(3):
     print()
     user = User()
     user.display_user_cards()
     user.bid(int(input('Enter your bid: ')))
+    system('CLS')
 
     for j in range(13):
         print(user.card_throw())
         user.display_user_cards()
         user.take_input()
+        system('CLS')
     user.result()
