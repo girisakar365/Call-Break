@@ -34,10 +34,16 @@ class User:
         
         User.card = ' '.join(self.p1) # to keep the track of selected cards of bot so as to display to for later!
 
-    def bid(self, bid: int):
+    def bid(self):
         # Bid of user and bot is stored here
         # For now the bid for bot is selected randomly between 1 - 3. 
-        self._bid = bid
+        while True:
+            try: int(input('Call a bid: '))
+
+            except ValueError: print('Invalid option')
+
+            else: break
+        
         self.bid_of_bot = float(randint(1,3))
         User.b_bid = self.bid_of_bot
 
@@ -121,7 +127,7 @@ class User:
             User.total += self.bid_of_bot 
         
         elif self.bid_of_bot < self.points.count('b'):
-            User.total += self.bid_of_bot + (self.points.count('b')/10)
+            User.total += self.bid_of_bot + ( ( self.points.count('b') - self.bid_of_bot) / 10 )
         
         elif self.bid_of_bot > self.points.count('b'):
             User.total -= self.bid_of_bot
@@ -130,7 +136,7 @@ for i in range(int(input('Select rounds: '))):
     print()
     user = User()
     user.display_user_cards()
-    user.bid(int(input('Call a bid: ')))
+    user.bid()
     system('CLS')
     for j in range(13):
         print(user.card_throw())
