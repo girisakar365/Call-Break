@@ -137,5 +137,5 @@ for i in range(int(input('Select rounds: '))):
         user.take_input()
         print('----------------------------------------\n')
     user.result()
-    show_table(user.bid_of_bot, user.total, user.card)
+    show_table(user.bid_of_bot, total, user.card)
     print(f'\n-------------------------------- end of round: {i+1} -------------------------------------------\n')
