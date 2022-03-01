@@ -3,9 +3,10 @@ from Cards import all_cards, value
 from random import choice, sample, randint
 from table import show_table
 
-total = 0#total points of bot in a round
 
 class User:
+
+    total = 0#total points of bot in a round
     b_bid = 0#bids of bot in a round
     card = None #cards of bot
     
@@ -117,13 +118,13 @@ class User:
             if bid of bot == total number of b in self.points + 1: append (bid of bot) + 0.1 in total
         '''
         if self.bid_of_bot == self.points.count('b'):
-            total += self.bid_of_bot 
+            User.total += self.bid_of_bot 
         
         elif self.bid_of_bot < self.points.count('b'):
-            total += self.bid_of_bot + (self.points.count('b')/10)
+            User.total += self.bid_of_bot + (self.points.count('b')/10)
         
         elif self.bid_of_bot > self.points.count('b'):
-            total -= self.bid_of_bot
+            User.total -= self.bid_of_bot
 
 for i in range(int(input('Select rounds: '))):
     print()
@@ -137,5 +138,5 @@ for i in range(int(input('Select rounds: '))):
         user.take_input()
         print('----------------------------------------\n')
     user.result()
-    show_table(user.bid_of_bot, total, user.card)
+    show_table(user.bid_of_bot, user.total, user.card)
     print(f'\n-------------------------------- end of round: {i+1} -------------------------------------------\n')
