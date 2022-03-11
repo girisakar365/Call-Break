@@ -1,0 +1,13 @@
+ALGO STEPS:
+
+    1. FIRST PLAY:
+        if 1S in deck ==> PLAY
+        else find lowest value card ==> PLAY
+    
+    2. LAST PLAY:
+        
+        a. SCAN HISTORY
+            if highest value card of suit ==> PLAY
+            else lowest value card of suit ==> PLAY
+        
+    
