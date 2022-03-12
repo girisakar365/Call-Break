@@ -1,8 +1,9 @@
-from prettytable import PrettyTable
+from prettytable import PrettyTable, ORGMODE
 
 table = PrettyTable()
-table.field_names = ['Bid', 'Total Point','Cards']
+table.field_names = ['Player','Bid', 'Total Point','Cards']
 
-def show_table(bid: float or int, tp: float or int, card: str):
-    table.add_row((str(bid), str(tp), card))
+def show_table(data:tuple):
+    table.add_rows(data)
     print(table)
+    table.clear_rows()
